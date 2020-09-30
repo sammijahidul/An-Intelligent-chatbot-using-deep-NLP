@@ -18,10 +18,9 @@ for line in lines:
         dic_line[_line[0]] = _line[4]
         
 # Creating a list of all of the conversation
-list_conver = []
-for conv in conversations[:-1]:
-    _conv = conversations.split(' +++$+++ ')[-1][1:-1].replace("'", "").replace (" ", "")
-    list_conver.append(_conv.str.split(','))
-    
+list_conversations = []
+for conversation in conversations[:-1]:
+    _conversation = conversation.split(' +++$+++ ')[-1][1:-1].replace("'", "").replace(" ", "")
+    list_conversations.append(_conversation.split(','))
         
         
