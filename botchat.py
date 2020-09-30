@@ -23,4 +23,11 @@ for conversation in conversations[:-1]:
     _conversation = conversation.split(' +++$+++ ')[-1][1:-1].replace("'", "").replace(" ", "")
     list_conversations.append(_conversation.split(','))
         
-        
+# Getting perfectly the questions and the answers
+questions = []
+answers = []   
+for conver in list_conversations:
+    for i in range(len(conver) - 1):
+        questions.append(dic_line[conver[i]])
+        answers.append(dic_line[conver[i+1]])
+    
