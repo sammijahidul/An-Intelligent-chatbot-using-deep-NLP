@@ -16,3 +16,12 @@ for line in lines:
     _line = line.split(' +++$+++ ')
     if len(_line) == 5:
         dic_line[_line[0]] = _line[4]
+        
+# Creating a list of all of the conversation
+list_conver = []
+for conv in conversations[:-1]:
+    _conv = conversations.split(' +++$+++ ')[-1][1:-1].replace("'", "").replace (" ", "")
+    list_conver.append(_conv.str.split(','))
+    
+        
+        
