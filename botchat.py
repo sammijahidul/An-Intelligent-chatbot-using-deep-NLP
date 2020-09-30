@@ -48,6 +48,16 @@ def clean_text(text):
     text = re.sub(r"can't", "cannot", text)
     text = re.sub(r"[-()\"#;:<>{}+=~?,]", "", text)
     return text
+
+# Cleaning the questions
+clean_ques = []
+for question in questions:
+    clean_ques.append(clean_text(question))
+    
+# Cleaning the answers
+clean_answ = []
+for answer in answers:
+    clean_answ.append(clean_text(answer))
     
     
     
