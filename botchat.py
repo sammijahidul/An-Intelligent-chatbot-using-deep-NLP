@@ -57,7 +57,23 @@ for question in questions:
 # Cleaning the answers
 clean_answ = []
 for answer in answers:
-    clean_answ.append(clean_text(answer))
+     clean_answ.append(clean_text(answer))
+     
+# Creating a dictionary that maps each word to its number of occurences
+word_count = {}
+for question in clean_ques:
+    for word in question.split():
+        if word not in word_count:
+            word_count[word] = 1
+        else:
+            word_count[word] += 1
+for answer in clean_answ:
+    for word in answer.split():
+        if word not in word_count:
+            word_count[word] = 1
+        else:
+            word_count[word] += 1
+                        
     
     
     
