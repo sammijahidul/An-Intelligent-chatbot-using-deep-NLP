@@ -73,6 +73,21 @@ for answer in clean_answ:
             word_count[word] = 1
         else:
             word_count[word] += 1
+
+# Creating two dictionaries that map the questions and answers words to a unique integer
+barrier = 25
+ques_words_int = {}
+word_number = 0
+for word, count in word_count.items():
+    if count >= barrier:
+        ques_words_int[word] = word_number
+        word_number += 1
+answ_words_int = {}
+word_number = 0
+for word, count in word_count.items():
+    if count >= barrier:
+        answ_words_int[word] = word_number
+        word_number += 1        
                         
     
     
