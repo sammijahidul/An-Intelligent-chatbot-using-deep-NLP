@@ -95,6 +95,9 @@ for token in list_tokens:
     ques_words_int[token] = len(ques_words_int) + 1
 for token in list_tokens:
     answ_words_int[token] = len(answ_words_int) + 1
+
+# Creating the inverse Dictionary of the answer dictionary
+answer_int_word = {w_i: w for w, w_i in answ_words_int.items()}    
            
        
     
