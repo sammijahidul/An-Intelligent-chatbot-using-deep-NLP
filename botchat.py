@@ -105,7 +105,25 @@ for i in range(len(clean_answ)):
 
 # Translating all the questions and the answers into integers
 # and Replacing all the words that were filtered out by <OUT> 
-           
+questions_to_int = []
+for question in clean_ques:
+    ints = []
+    for word in question.split():
+        if word not in ques_words_int:
+            ints.append(ques_words_int[ '<OUT>'])
+        else:
+            ints.append(ques_words_int[word])
+    questions_to_int.append(ints)   
+answer_to_int = []
+for answer in clean_answ:
+    ints = []
+    for word in answer.split():
+        if word not in answ_words_int:
+            ints.append(answ_words_int[ '<OUT>'])
+        else:
+            ints.append(answ_words_int[word])
+    answer_to_int.append(ints)  
+          
        
     
     
