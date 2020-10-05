@@ -75,7 +75,7 @@ for answer in clean_answ:
             word_count[word] += 1
 
 # Creating two dictionaries that map the questions and answers words to a unique integer
-barrier = 25
+barrier = 20
 ques_words_int = {}
 word_number = 0
 for word, count in word_count.items():
@@ -89,6 +89,14 @@ for word, count in word_count.items():
         answ_words_int[word] = word_number
         word_number += 1        
                         
+# Adding the last tokens to these two dictionaries 
+list_tokens = ['<PAD>', '<EOS>', '<OUT', '<SOS>']
+for token in list_tokens:
+    ques_words_int[token] = len(ques_words_int) + 1
+for token in list_tokens:
+    answ_words_int[token] = len(answ_words_int) + 1
+           
+       
     
     
     
