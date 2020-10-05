@@ -97,7 +97,11 @@ for token in list_tokens:
     answ_words_int[token] = len(answ_words_int) + 1
 
 # Creating the inverse Dictionary of the answer dictionary
-answer_int_word = {w_i: w for w, w_i in answ_words_int.items()}    
+answer_int_word = {w_i: w for w, w_i in answ_words_int.items()} 
+
+# Adding the End of String token to the end of every answer 
+for i in range(len(clean_answ)):
+    clean_answ[i] += ' <EOS>' 
            
        
     
