@@ -123,7 +123,16 @@ for answer in clean_answ:
         else:
             ints.append(answ_words_int[word])
     answer_to_int.append(ints)  
-          
+
+# Sorting questions and answers by the length of questions
+sorted_clean_ques = []
+sorted_clean_answ = []
+for length in range(1, 25 + 1):
+    for i in enumerate(questions_to_int):
+        if len(i[1]) == length:
+            sorted_clean_ques.append(questions_to_int[i[0]])
+            sorted_clean_answ.append(answer_to_int[i[0]])
+         
        
     
     
