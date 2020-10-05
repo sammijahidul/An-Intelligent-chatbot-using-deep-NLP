@@ -90,7 +90,7 @@ for word, count in word_count.items():
         word_number += 1        
                         
 # Adding the last tokens to these two dictionaries 
-list_tokens = ['<PAD>', '<EOS>', '<OUT', '<SOS>']
+list_tokens = ['<PAD>', '<EOS>', '<OUT>', '<SOS>']
 for token in list_tokens:
     ques_words_int[token] = len(ques_words_int) + 1
 for token in list_tokens:
@@ -102,6 +102,9 @@ answer_int_word = {w_i: w for w, w_i in answ_words_int.items()}
 # Adding the End of String token to the end of every answer 
 for i in range(len(clean_answ)):
     clean_answ[i] += ' <EOS>' 
+
+# Translating all the questions and the answers into integers
+# and Replacing all the words that were filtered out by <OUT> 
            
        
     
