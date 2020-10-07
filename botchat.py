@@ -149,7 +149,19 @@ def preprocess_target(targets, word2int, batch_size):
     right_side = tf.strided_slice(targets, [0,0], [batch_size, -1], [1,1])
     preprocessed_targets = tf.concat([left_side, right_side], 1)
     return preprocessed_targets
-    
+
+# Creating the Encoder RNN Layer
+def encoder_rnn_layer(rnn_input, rnn_size, num_layers, keep_prob, sequence_lenght):
+    lstm = tf.contrib.rnn.BasicLSTMCell(rnn_size)
+    lstm_dropout = tf.contrib.rnn.DropoutWrapper(lstm, input_keep_prob = keep_prob)
+    encoder_cell = tf.contrib.rnn.MultiRNNCell([lstm_dropout] * num_layers)
+    _, encoder_state = tf.nn.bidirectional_dynamic_rnn(cell_fw = encoder_cell,
+                                                       cell_bw = encoder_cell,
+                                                       sequence_lenght = sequence_lenght,
+                                                       inputs = rnn_input,
+                                                       dtype = tf.float32)
+    return encoder_state
+                                            
     
        
     
