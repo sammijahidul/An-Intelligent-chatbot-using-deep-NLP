@@ -132,8 +132,26 @@ for length in range(1, 25 + 1):
         if len(i[1]) == length:
             sorted_clean_ques.append(questions_to_int[i[0]])
             sorted_clean_answ.append(answer_to_int[i[0]])
-         
-#       
+
+### Part 2 - Build the SEQ2SEQ Model
+            
+# Creating Placeholders for the inputs and the targets
+def model_input():
+    inputs = tf.placeholder(tf.int32, [None, None], name = 'input')
+    target = tf.placeholder(tf.int32, [None, None], name = 'target')
+    lr = tf.placeholder(tf.float32, name = 'learning_rate')
+    keep_prob = tf.placeholder(tf.float32, name = 'keep_prob')
+    return inputs, target, lr, keep_prob
+
+# Preprocessing the targets
+def preprocess_target(targets, word2int, batch_size):
+    left_side = tf.fill([batch_size, 1], word2int['<SOS>'])
+    right_side = tf.strided_slice(targets, [0,0], [batch_size, -1], [1,1])
+    preprocessed_targets = tf.concat([left_side, right_side], 1)
+    return preprocessed_targets
+    
+    
+       
     
     
     
