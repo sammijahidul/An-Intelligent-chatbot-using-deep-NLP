@@ -163,7 +163,10 @@ def encoder_rnn_layer(rnn_input, rnn_size, num_layers, keep_prob, sequence_lengh
     return encoder_state
                                             
 # Decoding the training set
-def decode_training_Set(encoder_state, decoder_cell, decoder_embedded_input):   
+def decode_training_Set(encoder_state, decoder_cell, decoder_embedded_input, sequence_length, decoding_scope, output_fuction, keep_prob, batch_size):
+    attention_state = tf.zeros([batch_size, 1, decoder_cell.output_size])
+    attention_keys, attention_values, attention_score_function = tf.contrib.seq2seq.prepare_attention(attention_state, attention_option = 'bahdanau', num_units = decoder_cell.output_size)
+    
        
     
     
