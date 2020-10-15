@@ -165,8 +165,14 @@ def encoder_rnn_layer(rnn_input, rnn_size, num_layers, keep_prob, sequence_lengh
 # Decoding the training set
 def decode_training_Set(encoder_state, decoder_cell, decoder_embedded_input, sequence_length, decoding_scope, output_fuction, keep_prob, batch_size):
     attention_state = tf.zeros([batch_size, 1, decoder_cell.output_size])
-    attention_keys, attention_values, attention_score_function = tf.contrib.seq2seq.prepare_attention(attention_state, attention_option = 'bahdanau', num_units = decoder_cell.output_size)
-    
+    attention_keys, attention_values, attention_score_function, attention_construct_function = tf.contrib.seq2seq.prepare_attention(attention_state, attention_option = 'bahdanau', num_units = decoder_cell.output_size)
+    training_decod_fun = tf.contrib.seq2seq.attention_decoder_fn_train(encoder_state[0],
+                                                                       attention_keys,
+                                                                       attention_values,
+                                                                       attention_score_function,
+                                                                       attention_construct_function,
+                                                                       name = "attn_dec_train")
+    decoder_output, decoder_final_state, decoder_final_context_state =
        
     
     
