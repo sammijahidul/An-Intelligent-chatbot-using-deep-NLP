@@ -181,7 +181,7 @@ def decode_training_Set(encoder_state, decoder_cell, decoder_embedded_input, seq
     return output_fuction(decoder_output_dropout)
 
 # Decoding the test/validation set
-def decode_validation_Set(encoder_state, decoder_cell, decoder_embedded_input, sos_id, eos_id, max_length, num_words, sequence_length, decoding_scope, output_fuction, keep_prob, batch_size):
+def decode_validation_Set(encoder_state, decoder_cell, decoder_embedded_matrix, sos_id, eos_id, max_length, num_words, sequence_length, decoding_scope, output_fuction, keep_prob, batch_size):
     attention_state = tf.zeros([batch_size, 1, decoder_cell.output_size])
     attention_keys, attention_values, attention_score_function, attention_construct_function = tf.contrib.seq2seq.prepare_attention(attention_state, attention_option = 'bahdanau', num_units = decoder_cell.output_size)
     validation_decod_fun = tf.contrib.seq2seq.attention_decoder_fn_inference(output_fuction,
@@ -190,14 +190,17 @@ def decode_validation_Set(encoder_state, decoder_cell, decoder_embedded_input, s
                                                                              attention_values,
                                                                              attention_score_function,
                                                                              attention_construct_function,
-                                                                             name = "attn_dec_train")
-    decoder_output, decoder_final_state, decoder_final_context_state = tf.contrib.seq2seq.dynamic_rnn_decoder(decoder_cell,
-                                                                                                              training_decod_fun,
-                                                                                                              decoder_embedded_input,
-                                                                                                              sequence_length,
-                                                                                                              scope = decoding_scope)
-    decoder_output_dropout = tf.nn.dropout(decoder_output, keep_prob)
-    return output_fuction(decoder_output_dropout)
+                                                                             decoder_embedded_matrix, 
+                                                                             sos_id, 
+                                                                             eos_id, 
+                                                                             max_length, 
+                                                                             num_words,
+                                                                             name = "attn_dec_info")
+    test_prediction, decoder_final_state, decoder_final_context_state = tf.contrib.seq2seq.dynamic_rnn_decoder(decoder_cell,
+                                                                                                               validation_decod_fun,
+                                                                                                               scope = decoding_scope)
+
+    return test_prediction
      
     
     
