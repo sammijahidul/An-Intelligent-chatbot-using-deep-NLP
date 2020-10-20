@@ -237,6 +237,56 @@ def decode_rnn(decoder_embedded_input, decoder_embedded_matrix, encoder_state, n
                                                  batch_size)
            
     return training_predictions, test_predictions
+
+# Building the seq2seq model
+def seq2seq_model(inputs, 
+                  targets, 
+                  keep_prob, 
+                  batch_size, 
+                  sequence_length, 
+                  answer_num_word, 
+                  question_num_word,
+                  encoder_embedding_size,
+                  decoder_embedding_size,
+                  rnn_size,
+                  num_layers,
+                  questions_to_int):
+    encoder_embedded_input = tf.contrib.layers.embed_sequence(inputs,
+                                                              answer_num_word + 1,
+                                                              encoder_embedding_size,
+                                                              initializer = tf.random_uniform_initializer(0, 1))
+    encoder_state = encoder_rnn_layer(encoder_embedded_input,
+                                      rnn_size,
+                                      num_layers,
+                                      keep_prob,
+                                      sequence_length)
+    preprocessed_targets = preprocess_target(targets, ques_words_int, batch_size)
+    decoder_embedded_matrix = tf.Variable(tf.random_uniform([question_num_word + 1, 
+                                                            decoder_embedding_size], 0, 1))
+    decoder_embedded_input = tf.nn.embedding_lookup(decoder_embedded_matrix, preprocessed_targets)
+    training_predictions, test_predictions = decode_rnn(decoder_embedded_input,
+                                                        decoder_embedded_matrix,
+                                                        encoder_state,
+                                                        question_num_word,
+                                                        sequence_length,
+                                                        rnn_size,
+                                                        num_layers,
+                                                        ques_words_int,
+                                                        keep_prob,
+                                                        batch_size)
+    return training_predictions, test_predictions
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
         
 
      
