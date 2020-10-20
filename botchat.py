@@ -216,6 +216,28 @@ def decode_rnn(decoder_embedded_input, decoder_embedded_matrix, encoder_state, n
                                                                      scope = decoding_scope,
                                                                      weights_intializers = weight,
                                                                      biases_initializer = biases)
+        training_predictions = decode_training_Set(encoder_state,
+                                                   decoder_cell,
+                                                   decoder_embedded_input,
+                                                   decoding_scope,
+                                                   output_fuction,
+                                                   keep_prob,
+                                                   batch_size)
+        decoding_scope.reuse_variables()
+        test_predictions = decode_validation_Set(encoder_state,
+                                                 decoder_cell,
+                                                 decoder_embedded_matrix,
+                                                 word2int['<SOS>'],
+                                                 word2int['<EOS>'],
+                                                 sequence_length - 1,
+                                                 num_words,
+                                                 decoding_scope,
+                                                 output_fuction,
+                                                 keep_prob,
+                                                 batch_size)
+           
+    return training_predictions, test_predictions
+        
 
      
     
