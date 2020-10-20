@@ -203,7 +203,14 @@ def decode_validation_Set(encoder_state, decoder_cell, decoder_embedded_matrix, 
     return test_prediction
 
 # Creating the Decoder RNN(Recurrent neural network)
-def decode_rnn(decoder_embedded_input, decoder_embedded_matrix, encoder_state, num_words, sequence_length)
+def decode_rnn(decoder_embedded_input, decoder_embedded_matrix, encoder_state, num_words, sequence_length, rnn_size, num_layers, word2int, keep_prob, batch_size):
+    with tf.variable_scope("decoding") as decoding_scope:
+        lstm = tf.contrib.rnn.BasicLSTMCell(rnn_size)
+        lstm_dropout = tf.contrib.rnn.DropoutWrapper(lstm, input_keep_prob = keep_prob)
+        decoder_cell = tf.contrib.rnn.MultiRNNCell([lstm_dropout] * num_layers)
+        weight = tf.truncated_normal_initializer(stddev = 0.1)
+        biases = tf.zeros_initializer()
+        output_fuction = lambda x: 
 
      
     
