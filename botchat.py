@@ -210,7 +210,12 @@ def decode_rnn(decoder_embedded_input, decoder_embedded_matrix, encoder_state, n
         decoder_cell = tf.contrib.rnn.MultiRNNCell([lstm_dropout] * num_layers)
         weight = tf.truncated_normal_initializer(stddev = 0.1)
         biases = tf.zeros_initializer()
-        output_fuction = lambda x: 
+        output_fuction = lambda x: tf.contrib.layers.fully_connected(x,
+                                                                     num_words,
+                                                                     None,
+                                                                     scope = decoding_scope,
+                                                                     weights_intializers = weight,
+                                                                     biases_initializer = biases)
 
      
     
