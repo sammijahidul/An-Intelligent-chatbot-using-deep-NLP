@@ -289,6 +289,10 @@ learning_rate_decay = 0.9
 min_learning_rate = 0.0001
 keep_probability = 0.5
 
+# Define a session
+tf.compat.v1.reset_default_graph()
+session = tf.compat.v1.InteractiveSession()
+
 
 
     
