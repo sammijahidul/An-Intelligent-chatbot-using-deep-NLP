@@ -280,7 +280,7 @@ def seq2seq_model(inputs,
 ## Part 3- Training SEQ2SEQ Model
 
 # Setting the Hyperparameters
-epochs = 50 
+epochs = 100 
 batch_size = 64
 rnn_size = 512
 num_layers = 3
@@ -297,6 +297,10 @@ session = tf.InteractiveSession()
 
 # Loading the model inputs
 inputs, targets, lr, keep_prob = model_input()
+
+# Setting the sequence length 
+sequence_length = tf.placeholder_with_default(25, None, name ='sequence_length')
+
 
 
 
