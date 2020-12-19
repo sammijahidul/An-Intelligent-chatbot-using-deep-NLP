@@ -301,6 +301,24 @@ inputs, targets, lr, keep_prob = model_input()
 # Setting the sequence length 
 sequence_length = tf.placeholder_with_default(25, None, name ='sequence_length')
 
+# Getting the shape of the inputs sensor 
+input_shape  = tf.shape(inputs)
+
+# Getting the training and test predictions 
+training_predictions, test_predictions = seq2seq_model(tf.reverse(inputs),
+                                                       [-1],
+                                                       targets,
+                                                       keep_prob,
+                                                       batch_size,
+                                                       sequence_length,
+                                                       len(answer_to_int),
+                                                       len(questions_to_int),
+                                                       encoding_embedding_size,
+                                                       decoding_embedding_size,
+                                                       rnn_size,
+                                                       num_layers,
+                                                       ques_words_int)
+
 
 
 
