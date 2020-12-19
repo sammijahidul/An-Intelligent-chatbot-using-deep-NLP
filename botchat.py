@@ -295,6 +295,9 @@ keep_probability = 0.5
 tf.reset_default_graph()
 session = tf.InteractiveSession()
 
+# Loading the model inputs
+inputs, targets, lr, keep_prob = model_input()
+
 
 
     
