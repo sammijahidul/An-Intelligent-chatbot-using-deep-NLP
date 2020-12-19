@@ -278,6 +278,8 @@ def seq2seq_model(inputs,
     
 
 ## Part 3- Training SEQ2SEQ Model
+
+# Setting the Hyperparameters
 epochs = 50 
 batch_size = 64
 rnn_size = 512
@@ -290,8 +292,8 @@ min_learning_rate = 0.0001
 keep_probability = 0.5
 
 # Define a session
-tf.compat.v1.reset_default_graph()
-session = tf.compat.v1.InteractiveSession()
+tf.reset_default_graph()
+session = tf.InteractiveSession()
 
 
 
