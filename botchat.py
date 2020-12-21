@@ -293,13 +293,13 @@ keep_probability = 0.5
 
 # Define a session
 tf.compat.v1.reset_default_graph()
-session = tf.InteractiveSession()
+session = tf.compat.v1.InteractiveSession()
 
 # Loading the model inputs
 inputs, targets, lr, keep_prob = model_input()
 
 # Setting the sequence length 
-sequence_length = tf.placeholder_with_default(25, None, name ='sequence_length')
+sequence_length = tf.compat.v1.placeholder_with_default(25, None, name ='sequence_length')
 
 # Getting the shape of the inputs sensor 
 input_shape  = tf.shape(inputs)
@@ -328,6 +328,15 @@ with tf.name_scope("optimization"):
     gradients = optimizer.compute_gradients(loss_error)
     clipped_gradients = [(tf.clip_by_value(grad_tensor, -5., 5.), grad_variable)for grad_tensor, grad_variable in gradients if grad_tensor is not None]
     optimizer_gradient_clipping = optimizer.apply_gradients(clipped_gradients)
+
+
+# Padding the Sequences with the <PAD> TOKEN
+def apply_padding(batch_of_sequences, word2int):
+    max_sequence_length = max([len(sequence) for sequence in batch_of_sequences])
+    return [sequence + [word2int['<PAD>']] * (max_sequence_length - len(sequence))for sequence in batch_of_sequences]
+    
+    
+    
     
                                                           
     
