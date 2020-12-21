@@ -292,7 +292,7 @@ min_learning_rate = 0.0001
 keep_probability = 0.5
 
 # Define a session
-tf.reset_default_graph()
+tf.compat.v1.reset_default_graph()
 session = tf.InteractiveSession()
 
 # Loading the model inputs
@@ -318,6 +318,19 @@ training_predictions, test_predictions = seq2seq_model(tf.reverse(inputs),
                                                        rnn_size,
                                                        num_layers,
                                                        ques_words_int)
+
+# Setting up the Loss Error, The Optimizer and gradient Clipping
+with tf.name_scope("optimization"):
+    loss_error = tf.contrib.seq2seq.sequence_loss(training_predictions,
+                                                  targets,
+                                                  tf.ones([input_shape[0],sequence_length]))
+    optimizer = tf.train.AdamOptimizer(learning_rate)
+    gradients = optimizer.compute_gradients(loss_error)
+    clipped_gradients = [(tf.clip_by_value(grad_tensor, -5., 5.), grad_variable)for grad_tensor, grad_variable in gradients if grad_tensor is not None]
+    optimizer_gradient_clipping = optimizer.apply_gradients(clipped_gradients)
+    
+                                                          
+    
 
 
 
