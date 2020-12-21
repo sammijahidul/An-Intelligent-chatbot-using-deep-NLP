@@ -334,6 +334,20 @@ with tf.name_scope("optimization"):
 def apply_padding(batch_of_sequences, word2int):
     max_sequence_length = max([len(sequence) for sequence in batch_of_sequences])
     return [sequence + [word2int['<PAD>']] * (max_sequence_length - len(sequence))for sequence in batch_of_sequences]
+
+
+# Splitting the data into batches of questions and answers
+def split_into_batches(questions, answers, batch_size):
+    for batch_index in range(0, len(questions) // batch_size):
+        start_index = batch_index * batch_size
+        questions_in_batch = questions[start_index : start_index + batch_size]
+        answers_in_batch = answers[start_index : start_index + batch_size]
+        padded_questions_in_batch = np.array(apply_padding(questions_in_batch, ques_words_int))
+        padded_answers_in_batch = np.array(apply_padding(answers_in_batch, answ_words_int))
+        yield padded_questions_in_batch, padded_answers_in_batch
+        
+        
+    
     
     
     
