@@ -431,7 +431,30 @@ def convert_string2int(question, word2int):
     question = clean_text(question)
     return [word2int.get(word, word2int['<OUT>']) for word in question.split()]
 
-
+# Setting up the chatbot
+while(True):
+    question = input("you: ")
+    if question == 'GoodBye':
+        break
+    question = convert_string2int(question, ques_words_int)
+    question = question + [ques_words_int['<PAD>']] * (20 - len(question))
+    fake_batch = np.zeros((batch_size, 20))
+    fake_batch[0] = question
+    predicted_answer = session.run(test_predictions, {inputs: fake_batch, keep_prob: 0.5})[0]
+    answer = ''
+    for i in np.argmax(predicted_answer, 1):
+        if answer_int_word[i] == 'i':
+            token = 'I'
+        elif answer_int_word[i] == '<EOS>':
+            token = '.'
+        elif answer_int_word[i] == '<OUT>':
+            token = 'out'
+        else:
+            token = ' ' + answer_int_word[i]
+        answer += token
+        if token == '.':
+            break
+    print('ChatBot: ' + answer)
                 
             
             
