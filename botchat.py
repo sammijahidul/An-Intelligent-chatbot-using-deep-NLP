@@ -416,6 +416,15 @@ for epoch in range(1, epochs + 1):
         break
 print("Its Done")    
             
+
+# Part4 Testing the seq2seq Model
+
+# Loading the weights and Running the session
+checkpoint = "./chatbot_weights.ckpt"
+session = tf.InteractiveSession()
+session.run(tf.global_variables_initializer())
+saver = tf.train.Saver()
+saver.restore(session, checkpoint)
                 
             
             
